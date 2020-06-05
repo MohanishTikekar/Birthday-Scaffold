@@ -1,6 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Share } from 'react-native';
-import { Card, Icon } from 'react-native-elements';
+import { ActivityIndicator, StyleSheet, Text, View, Button, Share } from 'react-native';
+import { Card, Icon, Image } from 'react-native-elements';
+import { LinearGradient } from "expo";
+import * as Animatable from 'react-native-animatable';
+
 import { PEOPLE } from "../shared/people";
 const limit = PEOPLE.length;
 
@@ -32,33 +35,47 @@ export default function Person_i({ route, navigation }) {
         <View style={styles.container}>
             <Text>Person ith</Text>
             <Text>His Message</Text>
-            <Card
-                featuredTitle={PEOPLE[personId].name}
+            <Animatable.View
+                animation="fadeInDownBig"
+                direction="alternate"
+                duration={1000}
+                easing="ease-in-out-cubic">
+                <Card
+                    title={PEOPLE[personId].name}
                 //! Image see
-                image={require('./images/alberto.png')}
-            >
-                <Text style={{ margin: 10 }}>{PEOPLE[personId].description}</Text>
-                <View style={{ flexDirection: "row" }}>
-                    <View style={{ flex: 1, alignItems: "center" }}>
-                        <Icon
-                            raised
-                            reverse
-                            name='share'
-                            type='font-awesome'
-                            color='#51D2A8'
-                            style={styles.cardItem}
-                            onPress={() => shareMessage(PEOPLE[personId].name, PEOPLE[personId].description, 'www.wikipedia.com')} />
+                //image={require('./images/alberto.png')}
+                >
+                    <Image
+                        source={require('./images/alberto.png')}
+                        style={{ width: 200, height: 200 }}
+                        PlaceholderContent={<ActivityIndicator />}
+                        containerStyle={styles.OverlayImage}
+                        transition
+                        transparent
+                    />
+                    <Text style={{ margin: 10 }}>{PEOPLE[personId].description}</Text>
+                    <View style={{ flexDirection: "row" }}>
+                        <View style={{ flex: 1, alignItems: "center" }}>
+                            <Text>Heartfelt?</Text>
+                            <Text>Share this message...</Text>
+                        </View>
+                        <View style={{ flex: 1, alignItems: "center" }}>
+                            <Icon
+                                raised
+                                reverse
+                                name='share'
+                                type='font-awesome'
+                                color='#51D2A8'
+                                style={styles.cardItem}
+                                onPress={() => shareMessage(PEOPLE[personId].name, PEOPLE[personId].description, 'www.wikipedia.com')} />
+                        </View>
                     </View>
-                    <View style={{ flex: 1, alignItems: "flex-start" }}>
-                        <Text>Heartfelt?</Text>
-                        <Text>Share this message...</Text>
-                    </View>
-                </View>
-            </Card>
-            <Button
-                title="GO TO Next Person i+1"
-                onPress={() => nextPerson()}
-            />
+                    <Button
+                        title="NEXT WISH!"
+                        onPress={() => nextPerson()}
+                    />
+                </Card>
+            </Animatable.View>
             <Button
                 title="Back To Home"
                 onPress={() => navigation.navigate('Home')}

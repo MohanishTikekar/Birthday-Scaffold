@@ -1,7 +1,7 @@
 export const BIRTHDAYGUY = [
     {
         id: 0,
-        name: "Ashish Poopwal",
+        name: "Jogesh Muppala",
         image: "/assets/images/alberto.png",
         nickName: "CEO",
         featured: false,
