@@ -15,9 +15,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home} options={{ title: 'T_H_C' }} />
+        <Stack.Screen name="Home" component={Home} options={{ title: 'People' }} />
         <Stack.Screen name="AboutApp" component={AboutApp} />
-        <Stack.Screen name="Person_i" component={Person_i} />
+        <Stack.Screen name="Person_i" component={Person_i} options={{ title: 'Happy Birthday!' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
