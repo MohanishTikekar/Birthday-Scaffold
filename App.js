@@ -6,7 +6,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useFonts } from '@use-expo/font';
 import { AppLoading } from 'expo';
 import Home from './components/HomeComponent';
-import AboutApp from './components/AboutAppComponent';
+import HeartApp from './components/TheHeartComponent';
+import AboutApp from './components/AboutComponent'
 import Person_i from './components/Person_iComponent'
 
 

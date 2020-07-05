@@ -14,10 +14,10 @@ function getRandomNumber(min, max) {
     return Math.random() * (max - min) + min;
 }
 function getRandomColor() {
-    return `rgb(${getRandomNumber(100, 144)},${getRandomNumber(10, 200)},${getRandomNumber(200, 240)})`;
+    return `rgb(${getRandomNumber(100, 242)},${getRandomNumber(10, 200)},${getRandomNumber(200, 250)})`;
 }
 
-export default class AboutApp extends React.Component {
+export default class HeartApp extends React.Component {
 
     state = {
         hearts: []
@@ -50,31 +50,28 @@ export default class AboutApp extends React.Component {
 
         return (
             <View style={styles.container}>
-                <Text>LOTTIE VIEW NOT WORKING</Text>
-                <Text>Made with L0\/3 by Mohanish</Text>
                 <View style={styles.lottieMessage}>
                     <LottieView source={require('../assets/birthday-party.json')}
                         autoPlay loop>
                     </LottieView>
-
-
-                    <View style={styles.container}>
-                        {this.state.hearts.map(heart => {
-                            return (
-                                <HeartContainer key={heart.id}
-                                    style={{ right: heart.right }}
-                                    onComplete={() => this.removeHeart(heart.id)}
-                                    color={heart.color}
-                                />
-                            )
-                        })}
-                    </View>
-
-                    <TouchableOpacity style={styles.addButton} onPress={this.addHeart}>
-                        <AntDesign name="plus" size={24} color="#fff" />
-                    </TouchableOpacity>
-
                 </View>
+
+                <View style={styles.container}>
+                    {this.state.hearts.map(heart => {
+                        return (
+                            <HeartContainer key={heart.id}
+                                style={{ right: heart.right }}
+                                onComplete={() => this.removeHeart(heart.id)}
+                                color={heart.color}
+                            />
+                        )
+                    })}
+                </View>
+
+                <TouchableOpacity style={styles.addButton} onPress={this.addHeart}>
+                    <AntDesign name="heart" size={28} color="#fff" />
+                </TouchableOpacity>
+
             </View>
         );
 
@@ -162,23 +159,23 @@ const styles = StyleSheet.create({
     //     width: '100%',
     //     height: 500,
     // },
-    container: {
-        flex: 1,
-        // backgroundImage: ,
-        backgroundColor: '#eff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+    // container: {
+    //     flex: 1,
+    //     // backgroundImage: ,
+    //     backgroundColor: '#eff',
+    //     alignItems: 'center',
+    //     justifyContent: 'center',
+    // },
     addButton: {
-        backgroundColor: "#378ad9",
-        width: 60,
-        height: 60,
+        backgroundColor: "#f242f5",
+        width: 54,
+        height: 54,
         borderRadius: 30,
         alignItems: "center",
         justifyContent: "center",
-        position: "absolute",
-        bottom: 32,
-        left: 32,
+        position: "relative",
+        bottom: 0,
+        left: 3,
     },
     heartContainer: {
         position: "absolute",

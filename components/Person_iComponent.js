@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { TouchableOpacity, PanResponder, ActivityIndicator, StyleSheet, Text, View, Button, Share, Animated, ScrollView } from 'react-native';
-import { Card, Icon, Image } from 'react-native-elements';
+import { TouchableOpacity, PanResponder, ActivityIndicator, StyleSheet, Text, View, Share, Animated, ScrollView } from 'react-native';
+import { Card, Icon, Image, Button } from 'react-native-elements';
 import { LinearGradient } from "expo-linear-gradient";
 import * as Animatable from 'react-native-animatable';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { useFonts } from '@use-expo/font';
 import { AppLoading } from 'expo';
+import HeartApp from './TheHeartComponent.js'
 
 import { PEOPLE } from "../shared/people";
 const limit = PEOPLE.length;
@@ -37,7 +38,7 @@ export default function Person_i({ route, navigation }) {
 
     //UseEffect HOOK
     useEffect(() => {
-        navigation.setOptions({ title: `${PEOPLE[personId].name}'s wish!` })
+        navigation.setOptions({ title: `${PEOPLE[personId].name}` })
     }, []);
 
     // FOR SHARING VIA ANY APP (SHARE API FROM REACT NATIVE)
@@ -87,122 +88,146 @@ export default function Person_i({ route, navigation }) {
     else {
 
         return (
-            <ScrollView>
-                <View style={styles.container}>
-                    <LinearGradient
-                        colors={['rgba(95, 255, 255, 0.09)', 'rgba(95, 255, 255, 0.17)', 'rgba(95, 255, 255, 0.33)', 'rgba(95, 0, 255, 0.33)', 'transparent']}
-                        style={{
-                            position: 'absolute',
-                            left: 0,
-                            right: 0,
-                            top: 0,
-                            height: 600,
-                        }}
-                        start={[0.0, 0.0]}
-                    />
-                    <Text
-                        style={{
-                            fontFamily: 'KaushanScript-Regular',
-                            fontSize: 20
-                        }}>
-                        Let's see what they have to share...</Text>
-                    <Animatable.View
-                        animation="lightSpeedIn"
-                        direction="normal"
-                        duration={300}
-                        easing="ease-in-back">
-                        <Card
-                            title={PEOPLE[personId].name}
-                        //! Image see
-                        //image={require('./images/alberto.png')}
-                        >
-                            <LinearGradient
-                                colors={['rgba(95, 255, 255, 0.09)', 'rgba(95, 255, 255, 0.17)', 'rgba(95, 255, 255, 0.33)', 'rgba(95, 0, 255, 0.33)', 'transparent']}
-                                style={{
-                                    position: 'absolute',
-                                    left: 0,
-                                    right: 0,
-                                    top: 0,
-                                    height: 600,
-                                }}
-                                start={[0.0, 0.0]}
-                            />
-                            <Animatable.View
-                                animation="fadeInLeft"
-                                direction="normal"
-                                duration={500}
-                                easing="ease-in-back"
-                                ref={handleViewRef}
-                                {...panResponder.panHandlers}>
-                                <Image
-                                    source={require('./images/heromain.jpg')}
-                                    style={{ width: 300, height: 300, marginLeft: 20 }}
-                                    PlaceholderContent={<ActivityIndicator />}
-                                    containerStyle={styles.OverlayImage}
-                                    transition
-                                    transparent
+            <React.Fragment>
+                <ScrollView>
+                    <View style={styles.container}>
+                        <LinearGradient
+                            colors={['rgba(95, 255, 255, 0.09)', 'rgba(95, 255, 255, 0.17)', 'rgba(95, 255, 255, 0.33)', 'rgba(95, 0, 255, 0.33)', 'transparent']}
+                            style={{
+                                position: 'absolute',
+                                left: 0,
+                                right: 0,
+                                top: 0,
+                                height: 800,
+                            }}
+                            start={[0.0, 0.0]}
+                        />
+                        <Text
+                            style={{
+                                fontFamily: 'KaushanScript-Regular',
+                                fontSize: 20
+                            }}>
+                            Let's see what they have to share...</Text>
+                        <Animatable.View
+                            animation="lightSpeedIn"
+                            direction="normal"
+                            duration={300}
+                            easing="ease-in-back">
+                            <Card
+                                title={`${PEOPLE[personId].name}'s wish!`}
+                                titleStyle={{ fontFamily: "Bellota-Bold" }}
+                            //! Image see
+                            //image={require('./images/alberto.png')}
+                            >
+                                <LinearGradient
+                                    colors={['rgba(95, 255, 255, 0.09)', 'rgba(95, 255, 255, 0.17)', 'rgba(95, 255, 255, 0.33)', 'rgba(95, 0, 255, 0.33)', 'transparent']}
+                                    style={{
+                                        position: 'absolute',
+                                        left: 0,
+                                        right: 0,
+                                        top: 0,
+                                        height: 950,
+                                    }}
+                                    start={[0.0, 0.0]}
                                 />
-                                <Ionicons name="md-checkmark-circle" size={32} color="green" style={{ alignItems: 'flex-end' }} />
-                            </Animatable.View>
-                            <Text
-                                style={{
-                                    margin: 10,
-                                    fontFamily: 'Satisfy-Regular',
-                                    fontSize: 22
-                                }}>
-                                {PEOPLE[personId].description}
-                            </Text>
-                            <View style={{ flexDirection: "row" }}>
-                                <View style={{ flex: 1, alignItems: "center" }}>
-                                    <Text style={{ fontFamily: 'KaushanScript-Regular', fontSize: 18 }}>Heartfelt ??</Text>
-                                    <Text style={{ fontFamily: 'KaushanScript-Regular', fontSize: 18 }}>Share this message...</Text>
+                                <Animatable.View
+                                    animation="fadeInLeft"
+                                    direction="normal"
+                                    duration={500}
+                                    easing="ease-in-back"
+                                    ref={handleViewRef}
+                                    {...panResponder.panHandlers}>
+                                    <Image
+                                        // source={require(`${PEOPLE[personId].image}`)}
+                                        source={{ uri: `${PEOPLE[personId].image}` }}
+                                        style={{ width: 300, height: 400, marginLeft: 20 }}
+                                        PlaceholderContent={<ActivityIndicator />}
+                                        containerStyle={styles.OverlayImage}
+                                        transition
+                                        transparent
+                                    />
+                                </Animatable.View>
+                                <Text
+                                    style={{
+                                        margin: 10,
+                                        fontFamily: 'Satisfy-Regular',
+                                        fontSize: 22
+                                    }}>
+                                    {PEOPLE[personId].description}
+                                </Text>
+                                <View style={{ flexDirection: "row" }}>
+                                    <View style={{ flex: 1, alignItems: "center" }}>
+                                        <Text style={{ fontFamily: 'Bellota-Bold', fontSize: 18 }}>Heartfelt ??</Text>
+                                        <Text style={{ fontFamily: 'KaushanScript-Regular', fontSize: 18 }}>Share this message...</Text>
+                                    </View>
+                                    <View style={{ flex: 1, alignItems: "center" }}>
+                                        <Icon
+                                            raised
+                                            reverse
+                                            name='share'
+                                            type='font-awesome'
+                                            color='#51D2A8'
+                                            style={styles.cardItem}
+                                            onPress={() => shareMessage(PEOPLE[personId].name, PEOPLE[personId].description, 'www.wikipedia.com')} />
+                                    </View>
                                 </View>
-                                <View style={{ flex: 1, alignItems: "center" }}>
-                                    <Icon
-                                        raised
-                                        reverse
-                                        name='share'
-                                        type='font-awesome'
-                                        color='#51D2A8'
-                                        style={styles.cardItem}
-                                        onPress={() => shareMessage(PEOPLE[personId].name, PEOPLE[personId].description, 'www.wikipedia.com')} />
+                                <View style={{ flexDirection: "row" }}>
+                                    <View style={{ flex: 1, alignItems: "center" }}>
+                                        <Text style={{ fontFamily: 'Bellota-Bold', fontSize: 18 }}>Liked it ??</Text>
+                                        <Text style={{ fontFamily: 'KaushanScript-Regular', fontSize: 18 }}>Try Liking. Rapidly!</Text>
+                                    </View>
+                                    <View style={{ flex: 1, alignItems: "center" }}>
+                                        <HeartApp />
+                                    </View>
                                 </View>
-                            </View>
-                            <Text style={{ fontFamily: 'Bellota-Bold', fontSize: 18 }} >Swipe Left the Image above!</Text>
-                            <Text style={{ fontFamily: 'Bellota-Bold', fontSize: 15 }}>Or press the button below</Text>
-                            <Button
-                                title="NEXT WISH!"
-                                onPress={() => nextPerson()}
-                                fontFamily='Bellota-Bold'
-                                fontSize={40}
-                            />
+                                <View style={{ flexDirection: "row" }}>
+                                    <View style={{ flex: 1, alignItems: "center", marginTop: 20 }}>
+                                        <Text style={{ fontFamily: 'Bellota-Bold', fontSize: 18 }} >Swipe Left the Image above!</Text>
+                                        <Text style={{ fontFamily: 'Bellota-Bold', fontSize: 18 }} >for the next wish.</Text>
+                                        <Text style={{ fontFamily: 'Bellota-Bold', fontSize: 28 }} >OR.</Text>
+                                    </View>
+                                </View>
+                                <View style={{ flexDirection: "row" }}>
+                                    <View style={{ flex: 1, alignItems: "center", marginBottom: 20 }}>
+                                        <Text style={{ fontFamily: 'Bellota-Bold', fontSize: 18 }}>Press the button below!</Text>
+                                    </View>
+                                </View>
+                                <Button
+                                    onPress={() => nextPerson()}
+                                    title="NEXT WISH "
+                                    titleStyle={{ fontFamily: 'Bellota-Bold', fontSize: 18 }}
+                                    buttonStyle={{ width: 180, alignContent: "center", marginLeft: 90, backgroundColor: "#512DA8" }}
+                                    type="solid"
+                                    icon={
+                                        <Icon
+                                            name="hand-o-right"
+                                            type='font-awesome'
+                                            size={20}
+                                            color="white"
+                                        />
+                                    }
+                                    iconRight
+                                />
 
-                        </Card>
-                    </Animatable.View>
+                            </Card>
+                        </Animatable.View>
+                        <Button
+                            title="Back To Home"
+                            titleStyle={{ fontFamily: 'Bellota-Bold', fontSize: 18 }}
+                            onPress={() => navigation.navigate('Home')}
+                            buttonStyle={{ width: 170, alignContent: "center", backgroundColor: "#512DA8" }}
+                        />
+                    </View>
+                    <View>
+                        <Text>
 
-                    <Animated.View style={[styles.heartContainer]}>
-                        <Heart color="purple" />
-                    </Animated.View>
-                    <TouchableOpacity style={styles.addButton}>
-                        <AntDesign name="plus" size={24} color="#fff" />
-                    </TouchableOpacity>
-                    <Button
-                        title="Back To Home"
-                        fontFamily='Bellota-Bold'
-                        fontSize={40}
-                        onPress={() => navigation.navigate('Home')}
-                    />
-                </View>
-            </ScrollView>
+                        </Text>
+                    </View>
+                </ScrollView>
+            </React.Fragment >
         );
     }
 }
-
-const Heart = props => (
-    <View {...props} style={[styles.heart, props.style]}>
-        <AntDesign name="heart" size={48} color={props.color} />
-    </View>
-)
 
 const styles = StyleSheet.create({
     container: {

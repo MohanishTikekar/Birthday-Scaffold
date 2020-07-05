@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, Modal, FlatList, Platform, StyleSheet, Text, ScrollView, Button, View } from 'react-native';
-import { Tile, Overlay, Image, Header, Tooltip } from 'react-native-elements';
+import { ActivityIndicator, Modal, FlatList, Platform, StyleSheet, Text, ScrollView, View } from 'react-native';
+import { Tile, Overlay, Image, Header, Tooltip, Button, Icon } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 import { LinearGradient } from "expo-linear-gradient";
 import { PEOPLE } from "../shared/people";
@@ -40,13 +40,17 @@ export default function Home({ navigation }) {
                 <Tile
                     key={index}
                     title={item.name}
+                    titleStyle={{ fontWeight: "100", fontFamily: "Bellota-Bold", }}
                     caption="OPEN"
+                    captionStyle={{ backgroundColor: "#3b353a", fontFamily: "Bellota-Bold" }}
                     featured
                     onPress={() => navigation.navigate("Person_i", { personId: item.id })}
                     //! Image see
-                    imageSrc={require('./images/apurva.jpeg')}
+                    //imageSrc={require('./images/apurva.jpeg')}
+                    imageSrc={{ uri: `${item.image}` }}
+                    height={600}
                 ></Tile>
-            </Animatable.View>
+            </Animatable.View >
         );
     };
 
@@ -54,16 +58,44 @@ export default function Home({ navigation }) {
     return (
         <View style={styles.container}>
             <ScrollView>
-                <Text style={styles.letsSee}>Let's see what your people want to convey!</Text>
-                <Text style={styles.letsSee}>Click on the Wishing Wells below!</Text>
+                <Text style={styles.letsSee}>See what your people want to convey!</Text>
+                <Text style={styles.letsSee}>Open the 'Wishing Wells' below!</Text>
                 <FlatList
                     data={people}
                     renderItem={renderPeopleItem}
                     keyExtractor={item => item.id.toString()}
                 />
                 <Button
+                    title="Toggle wish again! "
+                    onPress={() => toggleModal()}
+                    titleStyle={{ fontFamily: 'Bellota-Bold', fontSize: 18 }}
+                    buttonStyle={{ alignContent: "center", backgroundColor: "#b95cdb" }}
+                    type="solid"
+                    icon={
+                        <Icon
+                            name="rocket"
+                            type='font-awesome'
+                            size={20}
+                            color="white"
+                        />
+                    }
+                    iconRight
+                />
+                <Button
                     title="Go to About App Section."
                     onPress={() => navigation.navigate('AboutApp')}
+                    titleStyle={{ fontFamily: 'Bellota-Bold', fontSize: 18 }}
+                    buttonStyle={{ alignContent: "center", backgroundColor: "#7a45de" }}
+                    type="solid"
+                    icon={
+                        <Icon
+                            name="hand-o-right"
+                            type='font-awesome'
+                            size={20}
+                            color="white"
+                        />
+                    }
+                    iconRight
                 />
                 <Animatable.View
                     animation="tada"
@@ -101,32 +133,28 @@ export default function Home({ navigation }) {
                                 transition
                                 transparent
                             />
-                            <Text style={styles.modalText}>Cheers on turning {birthdayGuy[0].age}!</Text>
-                            <Text style={styles.modalText}>Come, Let's have  a blast!</Text>
-                            <Tooltip popover={<Text>Info here</Text>}
-                                skipAndroidStatusBar
-                                height={190}
-                                highlightColor="#d6bff5">
-                                <Text h3>Press me</Text>
-                            </Tooltip>
+                            <View style={{ flexDirection: "row" }}>
+                                <View style={{ flex: 1, alignItems: "center", marginTop: 20 }}>
+                                    <Text style={styles.modalText}>Cheers on turning {birthdayGuy[0].age}!</Text>
+                                </View>
+                            </View>
+                            <View style={{ flexDirection: "row" }}>
+                                <View style={{ flex: 1, alignItems: "center", marginBottom: 20 }}>
+                                    <Text style={styles.modalText}>Come, Let's have  a blast!</Text>
+                                </View>
+                            </View>
                             <Button
                                 onPress={() => toggleModal(!showModal)}
-                                color="#512DA8"
-                                title="SUrprizeee"
-                                fontFamily='Bellota-Bold'
-                                fontSize={40}
+                                title="DOUBLE CLICK FOR A SURPRIZE!"
+                                titleStyle={{ fontFamily: 'Bellota-Bold', fontSize: 18, color: "#fff" }}
+                                buttonStyle={{ width: 170, alignContent: "center", marginLeft: 120, backgroundColor: "#512DA8" }}
+                                type="outline"
                             />
                             <Animatable.Text animation="pulse"
                                 easing="ease-out" iterationCount="infinite"
                                 style={{ textAlign: 'center' }}>
                                 ❤️
                         </Animatable.Text>
-                            <Tooltip popover={<Text>Info here</Text>}
-                                skipAndroidStatusBar
-                                height={90}
-                                highlightColor="#d6bff5">
-                                <Text h3>Press me</Text>
-                            </Tooltip>
                         </View>
                     </Overlay>
                     <View style={styles.lottieMessage}>
@@ -158,6 +186,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: 20,
         fontSize: 23,
+        marginBottom: 6
     },
     modal: {
         justifyContent: 'center',
@@ -173,7 +202,7 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     modalText: {
-        fontSize: 18,
+        fontSize: 21,
         margin: 0,
         fontFamily: 'Bellota-Bold'
     },
@@ -182,3 +211,11 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     }
 });
+
+//* Tool Tip Component
+// <Tooltip popover={<Text>Info here</Text>}
+// skipAndroidStatusBar
+// height={190}
+// highlightColor="#d6bff5">
+// <Text h3>Press me</Text>
+// </Tooltip>
